@@ -1,0 +1,122 @@
+@forward "./base/index";
+@use "./util/index" as abc;
+
+// $header-bgcolor : rgb(249, 246, 33);
+$main-bgcolor : rgb(199, 91, 29);
+$footer-bgcolor : rgb(33, 249, 80);
+$para-fontsize : 15px;
+
+$colors: (color1: red, color2:green, color3:blue);
+
+@each $key, $color in $colors{
+    .#{$color}-text{
+        color: $color;
+    }
+}
+
+header {
+    background-color: abc.$header_bg;
+}
+
+.btn {
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-download {
+    @extend .btn;
+    background-color: greenyellow
+}
+
+.learn-more {
+    @extend .btn;
+    background-color: yellow;
+}
+
+@mixin para-style ($size, $style) {
+    font-size: $size;
+    text-align: $style;
+    margin: 10px 0;
+}
+
+@mixin setFontSize($value) {
+    @if $value ==small {
+        font-size: 12px;
+    }
+
+    @else if $value ==medium {
+        font-size: 16px;
+    }
+
+    @else if $value ==large {
+        font-size: 20px;
+    }
+
+    @else {
+        font-size: none;
+    }
+}
+
+#education p {
+    @include para-style(18px, justify);
+
+}
+
+nav {
+    margin-top: 15px;
+
+    ul {
+        list-style-type: none;
+
+        li {
+            display: inline-block;
+            margin: 0 15px;
+
+            a {
+                display: inline-block;
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+                transition: 0.4s;
+                border-radius: 5px;
+                @include setFontSize(small);
+            }
+
+            a:hover {
+                background: black;
+            }
+        }
+    }
+
+}
+
+main {
+    background-color: $main-bgcolor;
+}
+
+// #lorem{
+//     font-size: $para-fontsize;
+// }
+footer {
+    background-color: $footer-bgcolor;
+}
+
+[class*="col-"]{
+    float: left;
+}
+
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        width: 100% / 12 * $i;
+    }
+}
+
+
+.row::after{
+    clear: both;
+    content: "";
+    display: table;
+}
